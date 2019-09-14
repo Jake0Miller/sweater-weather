@@ -32,10 +32,9 @@ rescue ActiveRecord::PendingMigrationError => e
   exit 1
 end
 
-def stub_json(url,filename)
+def stub_json(url, filename)
   json_response = File.open(filename)
-  stub_request(:get, url).
-    to_return(status: 200, body: json_response)
+  stub_request(:get, url).to_return(status: 200, body: json_response)
 end
 
 RSpec.configure do |config|

@@ -1,7 +1,6 @@
 class Geocoder
-  def initialize(city, state)
-    @city = city
-    @state = state
+  def initialize(location)
+    @location = location
   end
 
   def coords
@@ -13,7 +12,7 @@ class Geocoder
   def conn
     @_conn ||= Faraday.new(url: "https://maps.googleapis.com/") do |faraday|
       faraday.params["key"] = ENV['key']
-      faraday.params["address"] = [@city.join("+"), @state].join(",+")
+      faraday.params["address"] = @location
       faraday.adapter Faraday.default_adapter
     end
   end
