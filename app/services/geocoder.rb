@@ -1,4 +1,4 @@
-class Geocoder
+class Geocoder < BaseService
   def initialize(location)
     @location = location
   end
@@ -15,10 +15,5 @@ class Geocoder
       faraday.params["address"] = @location
       faraday.adapter Faraday.default_adapter
     end
-  end
-
-  def get_json(url)
-    response = conn.get(url)
-    JSON.parse(response.body, symbolize_names: true)
   end
 end

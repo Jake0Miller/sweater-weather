@@ -9,7 +9,6 @@ RSpec.describe Location, type: :model do
   end
 
   describe 'Relationships' do
-    # it {should belong_to :merchant}
-    # it {should have_many :invoice_items}
+    it {should have_one :image}
   end
 end

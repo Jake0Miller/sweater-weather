@@ -1,11 +1,23 @@
 class ForecastFacade
-  def self.forecast(location)
-    coords = LocationFacade.coords(location)
-    fc = DarkSky.new(coords).forecast
+  def initialize(loc)
+    @loc = loc
+  end
 
-    {location: coords[:address],
-    conditions: fc[:currently],
-    hourly_forecast: fc[:hourly],
-    daily_forecast: fc[:daily]}
+  def forecast
+    fc = service
+
+    params = {location: @loc,
+      address: @loc[:address],
+      conditions: fc[:currently],
+      hourly: fc[:hourly],
+      daily: fc[:daily]}
+
+    Forecast.new(params)
+  end
+
+  private
+
+  def service
+    @_service ||= DarkSky.new(@loc).forecast
   end
 end

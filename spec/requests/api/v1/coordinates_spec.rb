@@ -7,16 +7,13 @@ describe 'GET /api/v1/coordinates?location=denver,co' do
 
     get "/api/v1/coordinates?location=denver,co"
 
-    coords = JSON.parse(response.body, symbolize_names: true)
+    coords = JSON.parse(response.body, symbolize_names: true)[:data][:attributes]
 
     expect(response.status).to eq 200
-
-    expected = {lat: "39.7392358",
-                lng: "-104.990251",
-                address: "Denver, CO, USA",
-                name: "denver,co",
-                id: Location.last.id}
-
-    expect(coords).to eq(expected)
+    
+    expect(coords[:lat]).to eq("39.7392358")
+    expect(coords[:lng]).to eq("-104.990251")
+    expect(coords[:address]).to eq("Denver, CO, USA")
+    expect(coords[:name]).to eq("denver,co")
   end
 end

@@ -1,11 +1,24 @@
 class LocationFacade
-  def self.coords(location)
-    db_location = Location.find_or_create_by(name: location)
-    return db_location if db_location[:address]
-    location = Geocoder.new(location).coords[:results]
+  def initialize(location)
+    @location = location
+  end
+
+  def coordinates
+    location = service.coords[:results]
     coords = location[0][:geometry][:location]
     coords[:address] = location[0][:formatted_address]
-    db_location.update_attributes(coords)
-    db_location
+    coords
+  end
+
+  def location
+    loc = Location.find_or_create_by(name: @location)
+    loc.update_attributes(coordinates) if loc[:address].nil?
+    loc
+  end
+
+  private
+
+  def service
+    @_service ||= Geocoder.new(@location)
   end
 end

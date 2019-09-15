@@ -9,12 +9,13 @@ describe 'GET /api/v1/forecast?location=denver,co' do
 
     get "/api/v1/forecast?location=denver,co"
 
-    forecast = JSON.parse(response.body, symbolize_names: true)
+    forecast = JSON.parse(response.body, symbolize_names: true)[:data][:attributes]
 
     expect(response.status).to eq 200
-    
-    expect(forecast.length).to eq(4)
-    expect(forecast.keys).to eq([:location, :conditions, :hourly_forecast, :daily_forecast])
-    expect(forecast[:location]).to eq("Denver, CO, USA")
+
+    expect(forecast.length).to eq(6)
+    expect(forecast.keys).to eq([:id, :location, :address, :conditions, :hourly, :daily])
+    expect(forecast[:address]).to eq("Denver, CO, USA")
+    expect(forecast[:conditions][:summary]).to eq("Partly Cloudy")
   end
 end
