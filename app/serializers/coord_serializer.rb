@@ -1,4 +1,4 @@
-class CoordSerializer #< ActiveModel::Serializer
+class CoordSerializer
   include FastJsonapi::ObjectSerializer
-  attributes :place_id, :lat, :long
+  attributes :lat, :long, :address, :id, :name
 end
