@@ -1,11 +1,11 @@
 class Api::V1::RoadTripController < ApplicationController
   def new
     if valid_credentials? == 'true'
-      eta = DirectionsFacade.new(dir_params).directions + Time.now.to_i
+      eta = RoadTripFacade.new(dir_params).directions + Time.now.to_i
       location = LocationFacade.new(params[:destination].downcase).location
-      # binding.pry
       fcast = ForecastFacade.new(location, eta).forecast
-      render json: ForecastSerializer.new(fcast)
+      binding.pry
+      render json: RoadTripSerializer.new(fcast)
     end
   end
 

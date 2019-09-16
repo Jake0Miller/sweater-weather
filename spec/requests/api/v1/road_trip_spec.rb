@@ -7,7 +7,7 @@ describe 'POST /api/v1/road_trip' do
       "./fixtures/pueblo_coords.json")
     stub_json("https://maps.googleapis.com/maps/api/directions/json?origin=Denver,CO&destination=Pueblo,CO&key=#{ENV['map_key']}",
       "./fixtures/denver_to_pueblo.json")
-    stub_json("https://api.darksky.net/forecast/#{ENV['dark_sky']}/38.2544472,-104.6091409,1568638800",
+    stub_json("https://api.darksky.net/forecast/#{ENV['dark_sky']}/38.2544472,-104.6091409,1568662126",
       "./fixtures/pueblo_forecast.json")
 
     allow(Time).to receive(:now).and_return(Time.parse("2019-09-16 11:42:23 -0600"))

@@ -1,4 +1,4 @@
-class DirectionsFacade
+class RoadTripFacade
   def initialize(params)
     @origin = params[:origin]
     @destination = params[:destination]
