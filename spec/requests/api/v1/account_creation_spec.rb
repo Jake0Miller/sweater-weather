@@ -11,12 +11,13 @@ describe 'POST /api/v1/users' do
   end
 
   it 'I can create a new user and receive an api key' do
-    forecast = JSON.parse(response.body, symbolize_names: true)[:data][:attributes]
+    user = JSON.parse(response.body, symbolize_names: true)
 
-    expect(response.status).to eq 200
+    expect(response.status).to eq 201
 
-    expect(forecast.length).to eq(1)
-    expect(forecast.keys).to eq([:api_key])
-    expect(forecast[:api_key].length).to eq(27)
+    expect(user.length).to eq(1)
+    expect(user.keys).to eq([:api_key])
+    expect(user[:api_key].length).to eq(26)
+    expect(User.first.api_key).to eq(user[:api_key])
   end
 end
