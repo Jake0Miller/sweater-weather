@@ -22,5 +22,6 @@ describe 'GET /api/v1/gifs?location=denver,co' do
     expect(gifs.keys).to eq([:data, :copyright])
     expect(gifs[:copyright]).to eq("2019")
     expect(gifs[:data].length).to eq(5)
+    expect(gifs[:data].first.keys).to eq([:time, :summary, :url])
   end
 end
