@@ -18,7 +18,7 @@ describe 'GET /api/v1/gifs?location=denver,co' do
 
     expect(response.status).to eq 200
 
-    expect(gifs.length).to eq(6)
+    expect(gifs.length).to eq(2)
     expect(gifs.keys).to eq([:data, :copyright])
     expect(gifs[:copyright]).to eq("2019")
     expect(gifs[:data].length).to eq(5)
