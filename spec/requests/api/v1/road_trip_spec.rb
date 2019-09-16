@@ -10,44 +10,40 @@ describe 'POST /api/v1/road_trip' do
       'ACCEPT' => 'application/json'}
   end
 
-  it 'I ' do
+  it 'I see the advance forceast and travel time' do
     post '/api/v1/road_trip', params: @request_body.to_json, headers: @headers
 
-    user = JSON.parse(response.body, symbolize_names: true)
+    road_trip = JSON.parse(response.body, symbolize_names: true)
 
     expect(response.status).to eq 200
 
-    expect(user.length).to eq(1)
-    expect(user.keys).to eq([:api_key])
-    expect(user[:api_key].length).to eq(26)
-    expect(User.first.api_key).to eq(user[:api_key])
-    expect(User.count).to eq(1)
+    expect(road_trip.length).to eq(1)
+    expect(road_trip.keys).to eq([:api_key])
+    expect(road_trip[:api_key].length).to eq(26)
   end
 
-  it 'Email cannot be blank' do
+  it 'Origin cannot be blank' do
     @request_body[:email] = ''
     post '/api/v1/road_trip', params: @request_body.to_json, headers: @headers
 
     user = JSON.parse(response.body, symbolize_names: true)
 
-    expect(response.status).to eq 401
+    expect(response.status).to eq 400
 
-    expect(user.length).to eq(1)
     expect(user.keys).to eq([:error])
-    expect(user[:error]).to eq('Username/password do not match')
+    expect(user[:error]).to eq('Origin cannot be blank')
   end
 
-  it 'Password cannot be blank' do
+  it 'Destination cannot be blank' do
     @request_body[:password] = ''
     post '/api/v1/road_trip', params: @request_body.to_json, headers: @headers
 
     user = JSON.parse(response.body, symbolize_names: true)
 
-    expect(response.status).to eq 401
+    expect(response.status).to eq 400
 
-    expect(user.length).to eq(1)
     expect(user.keys).to eq([:error])
-    expect(user[:error]).to eq('Username/password do not match')
+    expect(user[:error]).to eq('Destination cannot be blank')
   end
 
   it 'Api key cannot be blank' do
