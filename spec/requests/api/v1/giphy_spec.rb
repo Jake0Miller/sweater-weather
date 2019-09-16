@@ -6,6 +6,8 @@ describe 'GET /api/v1/gifs?location=denver,co' do
       "./fixtures/coords.json")
     stub_json("https://api.darksky.net/forecast/#{ENV['dark_sky']}/39.7392358,-104.990251",
       "./fixtures/forecast.json")
+    stub_json("https://api.giphy.com/v1/gifs/search?api_key=#{ENV['gif_key']}&q=Partly%20cloudy%20throughout%20the%20day.",
+      "./fixtures/partly_cloudy_gif.json")
 
     headers = {'CONTENT_TYPE' => 'application/json',
       'ACCEPT' => 'application/json'}
