@@ -8,9 +8,7 @@ class GifFacade
     @forecast.each do |forecast|
       forecast[:url] = gif(forecast)
     end
-    return image if image
-    image = service[:results][0][:urls]
-    Image.create(image.merge(location: db_location))
+    @forecast
   end
 
   def gif(forecast)
