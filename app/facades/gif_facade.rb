@@ -14,8 +14,9 @@ class GifFacade
   end
 
   def gif(forecast)
-    gif = Gif.find_by(description: forecast[:summary])
-    gif.url
+    gif = Gif.find_or_create_by(description: forecast[:summary])
+    return gif.url if gif && gif.url
+
   end
 
   private
