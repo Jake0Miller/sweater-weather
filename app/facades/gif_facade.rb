@@ -4,7 +4,6 @@ class GifFacade
   end
 
   def gifs
-    # binding.pry
     @forecast.each do |forecast|
       forecast[:url] = gif(forecast[:summary])
     end
