@@ -14,7 +14,7 @@ class GifFacade
   end
 
   def gif(forecast)
-    gif = Gif.find_by(description: forecast)
+    gif = Gif.find_by(description: forecast[:summary])
     gif.url
   end
 
