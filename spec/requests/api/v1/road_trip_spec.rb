@@ -2,10 +2,19 @@ require 'rails_helper'
 
 describe 'POST /api/v1/road_trip' do
   before(:each) do
+    stub_json("https://maps.googleapis.com/maps/api/geocode/json?address=pueblo,co&key=#{ENV['key']}",
+      "./fixtures/pueblo_coords.json")
+    stub_json("https://maps.googleapis.com/maps/api/directions/json?origin=Denver,CO&destination=Pueblo,CO&key=#{ENV['map_key']}",
+      "./fixtures/denver_to_pueblo.json")
+    stub_json("https://api.darksky.net/forecast/#{ENV['dark_sky']}/39.7392358,-104.990251",
+      "./fixtures/forecast.json")
+
     @user = User.create!(email: 'whatever@example.com', password: 'password', api_key: SecureRandom.hex(13))
+
     @request_body = {"origin" => "Denver, CO",
       "destination" => "Pueblo, CO",
       "api_key" => @user.api_key}
+
     @headers = {'CONTENT_TYPE' => 'application/json',
       'ACCEPT' => 'application/json'}
   end
@@ -19,7 +28,6 @@ describe 'POST /api/v1/road_trip' do
 
     expect(road_trip.length).to eq(1)
     expect(road_trip.keys).to eq([:api_key])
-    expect(road_trip[:api_key].length).to eq(26)
   end
 
   it 'Origin cannot be blank' do

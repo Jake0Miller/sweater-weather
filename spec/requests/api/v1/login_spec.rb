@@ -3,8 +3,10 @@ require 'rails_helper'
 describe 'POST /api/v1/sessions' do
   before(:each) do
     @user = User.create!(email: 'whatever@example.com', password: 'password', api_key: SecureRandom.hex(13))
+
     @request_body = {"email" => @user.email,
       "password" => "password"}
+      
     @headers = {'CONTENT_TYPE' => 'application/json',
       'ACCEPT' => 'application/json'}
     expect(User.count).to eq(1)

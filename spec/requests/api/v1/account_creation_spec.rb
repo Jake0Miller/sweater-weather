@@ -5,6 +5,7 @@ describe 'POST /api/v1/users' do
     @request_body = {"email" => "whatever@example.com",
       "password" => "password",
       "password_confirmation" => "password"}
+      
     @headers = {'CONTENT_TYPE' => 'application/json',
       'ACCEPT' => 'application/json'}
   end
