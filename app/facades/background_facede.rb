@@ -14,6 +14,6 @@ class BackgroundFacede
   private
 
   def service
-    @_service ||= Background.new(@location).image
+    @_service = Background.new(@location).image
   end
 end

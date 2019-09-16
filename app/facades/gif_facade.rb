@@ -20,6 +20,6 @@ class GifFacade
   private
 
   def service(summary)
-    @_service ||= Giphy.new.gif(summary)[:data][0][:url]
+    @_service = Giphy.new.gif(summary)[:data][0][:url]
   end
 end

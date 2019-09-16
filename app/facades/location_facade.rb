@@ -19,6 +19,6 @@ class LocationFacade
   private
 
   def service
-    @_service ||= Geocoder.new(@location)
+    @_service = Geocoder.new(@location)
   end
 end

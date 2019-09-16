@@ -10,6 +10,6 @@ class ForecastFacade
   private
 
   def service
-    @_service ||= DarkSky.new(@loc).forecast
+    @_service = DarkSky.new(@loc).forecast
   end
 end
