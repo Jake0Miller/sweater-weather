@@ -19,7 +19,7 @@ describe 'GET /api/v1/gifs?location=denver,co' do
     gifs = JSON.parse(response.body, symbolize_names: true)
 
     expect(response.status).to eq 200
-
+    binding.pry
     expect(gifs.length).to eq(2)
     expect(gifs.keys).to eq([:data, :copyright])
     expect(gifs[:copyright]).to eq("2019")

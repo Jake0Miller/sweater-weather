@@ -12,13 +12,14 @@ class GifFacade
 
   def gif(summary)
     gif = Gif.find_or_create_by(description: summary)
-    return gif.url if gif && gif.url
-    service(summary)
+    return gif.url if gif.url
+    gif.update_attributes(url: service(summary))
+    gif.save
   end
 
   private
 
   def service(summary)
-    @_service ||= Giphy.new.gif(summary)
+    @_service ||= Giphy.new.gif(summary)[:data][0][:url]
   end
 end
