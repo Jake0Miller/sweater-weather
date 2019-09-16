@@ -1,7 +1,7 @@
 class Api::V1::RoadTripController < ApplicationController
   def new
     if valid_credentials? == 'true'
-      location = LocationFacade.new(params[:location]).location
+      location = LocationFacade.new(params[:destination].downcase).location
       fcast = Rails.cache.fetch("forecasts/#{location}", expires_in: 10.minutes) do
         ForecastFacade.new(location).forecast
       end

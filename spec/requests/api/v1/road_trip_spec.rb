@@ -11,8 +11,8 @@ describe 'POST /api/v1/road_trip' do
 
     @user = User.create!(email: 'whatever@example.com', password: 'password', api_key: SecureRandom.hex(13))
 
-    @request_body = {origin: "Denver, CO",
-      destination: "Pueblo, CO",
+    @request_body = {origin: "Denver,CO",
+      destination: "Pueblo,CO",
       api_key: @user.api_key}
 
     @headers = {'CONTENT_TYPE' => 'application/json',
@@ -30,6 +30,8 @@ describe 'POST /api/v1/road_trip' do
 
     expect(road_trip.length).to eq(1)
     expect(road_trip.keys).to eq([:api_key])
+
+    expect(Location.count).to eq (1)
   end
 
   it 'Origin cannot be blank' do
@@ -60,7 +62,7 @@ describe 'POST /api/v1/road_trip' do
 
   it 'Api key cannot be blank' do
     @request_body[:api_key] = ''
-    
+
     post '/api/v1/road_trip', params: @request_body.to_json, headers: @headers
 
     user = JSON.parse(response.body, symbolize_names: true)

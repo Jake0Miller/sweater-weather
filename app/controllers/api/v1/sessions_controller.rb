@@ -1,6 +1,6 @@
 class Api::V1::SessionsController < ApplicationController
   def new
-    user = User.find_by(email: params[:email])
+    user = User.find_by(email: params[:email].downcase)
     if user && user.authenticate(params[:session][:password])
       render json: {api_key: user.api_key}
     else
