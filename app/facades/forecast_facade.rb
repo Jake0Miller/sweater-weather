@@ -1,23 +1,16 @@
 class ForecastFacade
-  def initialize(loc)
+  def initialize(loc, eta = '')
     @loc = loc
+    @eta = eta
   end
 
   def forecast
-    fc = service
-
-    params = {location: @loc,
-      address: @loc[:address],
-      conditions: fc[:currently],
-      hourly: fc[:hourly],
-      daily: fc[:daily]}
-
-    Forecast.new(params)
+    Forecast.new(@loc, service)
   end
 
   private
 
   def service
-    @_service ||= DarkSky.new(@loc).forecast
+    @_service = DarkSky.new(@loc, @eta).forecast
   end
 end

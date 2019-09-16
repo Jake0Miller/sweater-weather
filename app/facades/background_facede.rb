@@ -1,17 +1,19 @@
 class BackgroundFacede
-  def self.image(location)
-    db_location = Location.find_or_create_by(name: location)
-    if db_location[:address] && db_location.image
-      db_location.image
-    else
-      image = Background.new(location).image[:results][0][:urls]
-      unless db_location[:address]
-        location = Geocoder.new(location).coords[:results]
-        coords = location[0][:geometry][:location]
-        coords[:address] = location[0][:formatted_address]
-        db_location.update_attributes(coords)
-      end
-      Image.create(image.merge(location: db_location))
-    end
+  def initialize(location)
+    @location = location
+  end
+
+  def image
+    db_location = LocationFacade.new(@location).location
+    image = db_location.image
+    return image if image
+    image = service[:results][0][:urls]
+    Image.create(image.merge(location: db_location))
+  end
+
+  private
+
+  def service
+    @_service = Background.new(@location).image
   end
 end

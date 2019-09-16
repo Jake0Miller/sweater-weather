@@ -1,9 +1,11 @@
-class Api::V1::ForecastController < ApplicationController
-  def show
+class Api::V1::GifsController < ApplicationController
+  def index
     location = LocationFacade.new(params[:location].downcase).location
     fcast = Rails.cache.fetch("forecasts/#{location}", expires_in: 1.minutes) do
       ForecastFacade.new(location).forecast
     end
-    render json: ForecastSerializer.new(fcast)
+    gifs = {data: {images: GifFacade.new(fcast.daily[:data][0..4]).gifs}}
+    gifs[:copyright] = "2019"
+    render json: gifs
   end
 end
