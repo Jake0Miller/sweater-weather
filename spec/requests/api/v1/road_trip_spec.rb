@@ -11,15 +11,17 @@ describe 'POST /api/v1/road_trip' do
 
     @user = User.create!(email: 'whatever@example.com', password: 'password', api_key: SecureRandom.hex(13))
 
-    @request_body = {"origin" => "Denver, CO",
-      "destination" => "Pueblo, CO",
-      "api_key" => @user.api_key}
+    @request_body = {origin: "Denver, CO",
+      destination: "Pueblo, CO",
+      api_key: @user.api_key}
 
     @headers = {'CONTENT_TYPE' => 'application/json',
       'ACCEPT' => 'application/json'}
   end
 
   it 'I see the advance forceast and travel time' do
+    expect(Location.count).to eq (0)
+
     post '/api/v1/road_trip', params: @request_body.to_json, headers: @headers
 
     road_trip = JSON.parse(response.body, symbolize_names: true)
@@ -31,7 +33,8 @@ describe 'POST /api/v1/road_trip' do
   end
 
   it 'Origin cannot be blank' do
-    @request_body[:email] = ''
+    @request_body[:origin] = ''
+
     post '/api/v1/road_trip', params: @request_body.to_json, headers: @headers
 
     user = JSON.parse(response.body, symbolize_names: true)
@@ -43,7 +46,8 @@ describe 'POST /api/v1/road_trip' do
   end
 
   it 'Destination cannot be blank' do
-    @request_body[:password] = ''
+    @request_body[:destination] = ''
+
     post '/api/v1/road_trip', params: @request_body.to_json, headers: @headers
 
     user = JSON.parse(response.body, symbolize_names: true)
@@ -55,7 +59,8 @@ describe 'POST /api/v1/road_trip' do
   end
 
   it 'Api key cannot be blank' do
-    @request_body["api_key"] = ''
+    @request_body[:api_key] = ''
+    
     post '/api/v1/road_trip', params: @request_body.to_json, headers: @headers
 
     user = JSON.parse(response.body, symbolize_names: true)
