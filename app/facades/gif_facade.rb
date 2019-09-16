@@ -1,10 +1,10 @@
 class GifFacade
   def initialize(forecast)
-    @forecast = forecast
+    @forecast = forecast.map {|fcast| fcast[:summary]}
   end
 
-  def image
-    db_location = LocationFacade.new(@location).location
+  def gifs
+    binding.pry
     image = db_location.image
     return image if image
     image = service[:results][0][:urls]
