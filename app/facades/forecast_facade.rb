@@ -4,15 +4,7 @@ class ForecastFacade
   end
 
   def forecast
-    fc = service
-
-    params = {location: @loc,
-      address: @loc[:address],
-      conditions: fc[:currently],
-      hourly: fc[:hourly],
-      daily: fc[:daily]}
-
-    Forecast.new(params)
+    Forecast.new(@loc, service)
   end
 
   private

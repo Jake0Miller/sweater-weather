@@ -7,15 +7,20 @@ describe 'GET /api/v1/forecast?location=denver,co' do
     stub_json("https://api.darksky.net/forecast/#{ENV['dark_sky']}/39.7392358,-104.990251",
       "./fixtures/forecast.json")
 
-    get "/api/v1/forecast?location=denver,co"
+    headers = {'CONTENT_TYPE' => 'application/json',
+      'ACCEPT' => 'application/json'}
+
+    expect(Location.count).to eq(0)
+
+    get "/api/v1/forecast?location=denver,co", headers: headers
 
     forecast = JSON.parse(response.body, symbolize_names: true)[:data][:attributes]
 
     expect(response.status).to eq 200
 
     expect(forecast.length).to eq(6)
-    expect(forecast.keys).to eq([:id, :location, :address, :conditions, :hourly, :daily])
+    expect(forecast.keys).to eq([:id, :location, :address, :currently, :hourly, :daily])
     expect(forecast[:address]).to eq("Denver, CO, USA")
-    expect(forecast[:conditions][:summary]).to eq("Partly Cloudy")
+    expect(forecast[:currently][:summary]).to eq("Partly Cloudy")
   end
 end

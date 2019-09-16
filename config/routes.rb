@@ -6,6 +6,7 @@ Rails.application.routes.draw do
       get '/coordinates', to: 'coordinates#show'
       get '/forecast', to: 'forecast#show'
       get '/backgrounds', to: 'background#show'
+      post '/users', to: 'users#new'
     end
   end
 end

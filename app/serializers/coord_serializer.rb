@@ -1,4 +1,4 @@
 class CoordSerializer
   include FastJsonapi::ObjectSerializer
-  attributes :lat, :lng, :address, :id, :name
+  attributes :id, :lat, :lng, :address, :name
 end
