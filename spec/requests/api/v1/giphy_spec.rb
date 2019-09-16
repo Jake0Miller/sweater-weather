@@ -8,6 +8,8 @@ describe 'GET /api/v1/gifs?location=denver,co' do
       "./fixtures/forecast.json")
     stub_json("https://api.giphy.com/v1/gifs/search?api_key=#{ENV['gif_key']}&q=Partly%20cloudy%20throughout%20the%20day.",
       "./fixtures/partly_cloudy_gif.json")
+    stub_json("https://api.giphy.com/v1/gifs/search?api_key=#{ENV['gif_key']}&q=Mostly%20cloudy%20throughout%20the%20day.",
+      "./fixtures/mostly_cloudy_gif.json")
 
     headers = {'CONTENT_TYPE' => 'application/json',
       'ACCEPT' => 'application/json'}
@@ -19,7 +21,7 @@ describe 'GET /api/v1/gifs?location=denver,co' do
     gifs = JSON.parse(response.body, symbolize_names: true)
 
     expect(response.status).to eq 200
-    
+
     expect(gifs.length).to eq(2)
     expect(gifs.keys).to eq([:data, :copyright])
     expect(gifs[:copyright]).to eq("2019")
@@ -33,7 +35,7 @@ describe 'GET /api/v1/gifs?location=denver,co' do
     expect(gifs[:data][:images][4][:summary]).to eq("Partly cloudy throughout the day.")
 
     expect(gifs[:data][:images][0][:url]).to eq("https://giphy.com/gifs/beach-clouds-aQ7kognlRPDzi")
-    expect(gifs[:data][:images][1][:url]).to_not eq("https://giphy.com/gifs/beach-clouds-aQ7kognlRPDzi")
+    expect(gifs[:data][:images][1][:url]).to eq("https://giphy.com/gifs/dark-castle-63xBFHKNVjZlu")
     expect(gifs[:data][:images][2][:url]).to eq("https://giphy.com/gifs/beach-clouds-aQ7kognlRPDzi")
     expect(gifs[:data][:images][3][:url]).to eq("https://giphy.com/gifs/beach-clouds-aQ7kognlRPDzi")
     expect(gifs[:data][:images][4][:url]).to eq("https://giphy.com/gifs/beach-clouds-aQ7kognlRPDzi")

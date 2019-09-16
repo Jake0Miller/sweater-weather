@@ -6,6 +6,6 @@ class Api::V1::GifsController < ApplicationController
     end
     gifs = {data: {images: GifFacade.new(fcast.daily[:data][0..4]).gifs}}
     gifs[:copyright] = "2019"
-    render json: gifs.to_json
+    render json: gifs
   end
 end
