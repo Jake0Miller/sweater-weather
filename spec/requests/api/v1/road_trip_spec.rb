@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'time'
 
 describe 'POST /api/v1/road_trip' do
   before(:each) do
@@ -8,6 +9,8 @@ describe 'POST /api/v1/road_trip' do
       "./fixtures/denver_to_pueblo.json")
     stub_json("https://api.darksky.net/forecast/#{ENV['dark_sky']}/38.2544472,-104.6091409,1568638800",
       "./fixtures/pueblo_forecast.json")
+
+    allow(Time).to receive(:now).and_return(Time.parse("2019-09-16 11:42:23 -0600"))
 
     @user = User.create!(email: 'whatever@example.com', password: 'password', api_key: SecureRandom.hex(13))
 
