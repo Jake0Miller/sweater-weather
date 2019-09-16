@@ -14,7 +14,7 @@ class GifFacade
     gif = Gif.find_or_create_by(description: summary)
     return gif.url if gif.url
     gif.update_attributes(url: service(summary))
-    gif.save
+    gif.url
   end
 
   private

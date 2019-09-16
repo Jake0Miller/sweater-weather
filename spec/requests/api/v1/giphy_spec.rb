@@ -19,11 +19,26 @@ describe 'GET /api/v1/gifs?location=denver,co' do
     gifs = JSON.parse(response.body, symbolize_names: true)
 
     expect(response.status).to eq 200
-    binding.pry
+    
     expect(gifs.length).to eq(2)
     expect(gifs.keys).to eq([:data, :copyright])
     expect(gifs[:copyright]).to eq("2019")
-    expect(gifs[:data].length).to eq(5)
+    expect(gifs[:data][:images].length).to eq(5)
     expect(gifs[:data][:images].first.keys).to eq([:time, :summary, :url])
+
+    expect(gifs[:data][:images][0][:summary]).to eq("Partly cloudy throughout the day.")
+    expect(gifs[:data][:images][1][:summary]).to eq("Mostly cloudy throughout the day.")
+    expect(gifs[:data][:images][2][:summary]).to eq("Partly cloudy throughout the day.")
+    expect(gifs[:data][:images][3][:summary]).to eq("Partly cloudy throughout the day.")
+    expect(gifs[:data][:images][4][:summary]).to eq("Partly cloudy throughout the day.")
+
+    expect(gifs[:data][:images][0][:url]).to eq("https://giphy.com/gifs/beach-clouds-aQ7kognlRPDzi")
+    expect(gifs[:data][:images][1][:url]).to_not eq("https://giphy.com/gifs/beach-clouds-aQ7kognlRPDzi")
+    expect(gifs[:data][:images][2][:url]).to eq("https://giphy.com/gifs/beach-clouds-aQ7kognlRPDzi")
+    expect(gifs[:data][:images][3][:url]).to eq("https://giphy.com/gifs/beach-clouds-aQ7kognlRPDzi")
+    expect(gifs[:data][:images][4][:url]).to eq("https://giphy.com/gifs/beach-clouds-aQ7kognlRPDzi")
+
+    expect(Location.count).to eq(1)
+    expect(Gif.count).to eq(2)
   end
 end
