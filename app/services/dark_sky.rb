@@ -2,11 +2,11 @@ class DarkSky < BaseService
   def initialize(coords, eta)
     @lat = coords[:lat]
     @long = coords[:lng]
-    @eta = set_time
+    @eta = eta
   end
 
   def forecast
-    get_json("forecast/#{ENV['dark_sky']}/#{@lat},#{@long}#{@eta}")
+    get_json("forecast/#{ENV['dark_sky']}/#{@lat},#{@long}#{set_time}")
   end
 
   private
@@ -18,6 +18,6 @@ class DarkSky < BaseService
   end
 
   def set_time
-    @eta.nil? ? '' : ',' + @eta
+    @eta == '' ? '' : ',' + @eta.to_s
   end
 end
