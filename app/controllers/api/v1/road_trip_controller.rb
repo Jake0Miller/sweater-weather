@@ -1,9 +1,8 @@
 class Api::V1::RoadTripController < ApplicationController
   def new
     if valid_credentials? == 'true'
-      road_trip = RoadTripFacade.new(dir_params).road_trip
-      binding.pry
-      render json: RoadTripSerializer.new(fcast)
+      road_trip = RoadTripFacade.new(dir_params)
+      render json: RoadTripSerializer.new(road_trip)
     end
   end
 
@@ -20,6 +19,8 @@ class Api::V1::RoadTripController < ApplicationController
       'true'
     end
   end
+
+  private
 
   def dir_params
     params.permit(:origin, :destination)

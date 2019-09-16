@@ -5,7 +5,7 @@ describe 'POST /api/v1/road_trip' do
   before(:each) do
     stub_json("https://maps.googleapis.com/maps/api/geocode/json?address=pueblo,co&key=#{ENV['key']}",
       "./fixtures/pueblo_coords.json")
-    stub_json("https://maps.googleapis.com/maps/api/directions/json?origin=Denver,CO&destination=Pueblo,CO&key=#{ENV['map_key']}",
+    stub_json("https://maps.googleapis.com/maps/api/directions/json?origin=denver,co&destination=pueblo,co&key=#{ENV['map_key']}",
       "./fixtures/denver_to_pueblo.json")
     stub_json("https://api.darksky.net/forecast/#{ENV['dark_sky']}/38.2544472,-104.6091409,1568662126",
       "./fixtures/pueblo_forecast.json")
@@ -28,7 +28,7 @@ describe 'POST /api/v1/road_trip' do
     post '/api/v1/road_trip', params: @request_body.to_json, headers: @headers
 
     road_trip = JSON.parse(response.body, symbolize_names: true)
-
+    binding.pry
     expect(response.status).to eq 200
 
     expect(road_trip.keys).to eq([:temperature, :summary, :eta])

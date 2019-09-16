@@ -1,14 +1,16 @@
 class RoadTripFacade
   def initialize(params)
-    @origin = params[:origin]
-    @destination = params[:destination]
+    @origin = params[:origin].downcase
+    @destination = params[:destination].downcase
+    @duration = directions / 60
+    @temperature, @summary = road_trip
   end
 
   def road_trip
-    duration = RoadTripFacade.new(dir_params).directions
-    eta = duration + Time.now.to_i
-    location = LocationFacade.new(params[:destination].downcase).location
-    ForecastFacade.new(location, eta).forecast
+    location = LocationFacade.new(@destination).location
+    eta = directions + Time.now.to_i
+    forecast = ForecastFacade.new(location, eta).forecast
+    [forecast.currently[:temperature], forecast.currently[:summary]]
   end
 
   private
