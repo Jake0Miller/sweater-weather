@@ -7,7 +7,9 @@ class GifFacade
     @forecast.each do |forecast|
       forecast[:url] = gif(forecast[:summary])
     end
-    @forecast
+    output = {data: {images: @forecast}}
+    output[:copyright] = "2019"
+    output
   end
 
   def gif(summary)
