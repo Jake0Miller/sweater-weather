@@ -13,7 +13,7 @@ class GifFacade
 
   private
 
-  def service
-    @_service ||= Background.new(@location).image
+  def service(summary)
+    @_service ||= Giphy.new(summary).gif
   end
 end
