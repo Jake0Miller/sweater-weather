@@ -10,7 +10,7 @@ describe 'POST /api/v1/road_trip' do
       "./fixtures/pueblo_forecast.json")
 
     @user = User.create!(email: 'whatever@example.com', password: 'password', api_key: SecureRandom.hex(13))
-    
+
     @request_body = {origin: "Denver,CO",
       destination: "Pueblo,CO",
       api_key: @user.api_key}
@@ -28,8 +28,7 @@ describe 'POST /api/v1/road_trip' do
 
     expect(response.status).to eq 200
 
-    expect(road_trip.length).to eq(1)
-    expect(road_trip.keys).to eq([:api_key])
+    expect(road_trip.keys).to eq([:temperature, :summary, :eta])
 
     expect(Location.count).to eq (1)
   end

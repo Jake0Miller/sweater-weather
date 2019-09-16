@@ -1,11 +1,11 @@
 class DirectionsFacade
-  def initialize(origin, destination)
-    @origin = origin
-    @destination = destination
+  def initialize(params)
+    @origin = params[:origin]
+    @destination = params[:destination]
   end
 
   def directions
-    service.directions
+    service.directions[:routes][0][:legs][0][:duration][:value]
   end
 
   private

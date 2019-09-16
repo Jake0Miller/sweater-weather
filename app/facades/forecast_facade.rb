@@ -1,6 +1,7 @@
 class ForecastFacade
-  def initialize(loc)
+  def initialize(loc, eta = '')
     @loc = loc
+    @eta = eta
   end
 
   def forecast
@@ -10,6 +11,6 @@ class ForecastFacade
   private
 
   def service
-    @_service = DarkSky.new(@loc).forecast
+    @_service = DarkSky.new(@loc, @eta).forecast
   end
 end

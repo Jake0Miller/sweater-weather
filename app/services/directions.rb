@@ -1,5 +1,5 @@
 class Directions < BaseService
-  def initialize(origin)
+  def initialize(origin, destination)
     @origin = origin
     @destination = destination
   end
