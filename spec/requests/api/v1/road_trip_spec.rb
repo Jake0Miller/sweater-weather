@@ -6,11 +6,11 @@ describe 'POST /api/v1/road_trip' do
       "./fixtures/pueblo_coords.json")
     stub_json("https://maps.googleapis.com/maps/api/directions/json?origin=Denver,CO&destination=Pueblo,CO&key=#{ENV['map_key']}",
       "./fixtures/denver_to_pueblo.json")
-    stub_json("https://api.darksky.net/forecast/#{ENV['dark_sky']}/38.2544472,-104.6091409",
+    stub_json("https://api.darksky.net/forecast/#{ENV['dark_sky']}/38.2544472,-104.6091409,1568638800",
       "./fixtures/pueblo_forecast.json")
 
     @user = User.create!(email: 'whatever@example.com', password: 'password', api_key: SecureRandom.hex(13))
-
+    
     @request_body = {origin: "Denver,CO",
       destination: "Pueblo,CO",
       api_key: @user.api_key}

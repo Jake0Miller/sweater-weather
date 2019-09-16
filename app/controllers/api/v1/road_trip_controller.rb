@@ -1,12 +1,15 @@
 class Api::V1::RoadTripController < ApplicationController
   def new
     if valid_credentials? == 'true'
+      binding.pry
+      directions = DirectionsFacade.new(params[:origin], params[:destination]).directions
       location = LocationFacade.new(params[:destination].downcase).location
       fcast = Rails.cache.fetch("forecasts/#{location}", expires_in: 10.minutes) do
         ForecastFacade.new(location).forecast
       end
       render json: ForecastSerializer.new(fcast)
     end
+    # Time.now.to_i
   end
 
   private
