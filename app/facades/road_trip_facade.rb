@@ -1,5 +1,10 @@
 class RoadTripFacade
+  attr_reader :id, :origin, :destination, :duration, :temperature, :summary
+  @@id = 0
+
   def initialize(params)
+    @@id += 1
+    @id = @@id
     @origin = params[:origin].downcase
     @destination = params[:destination].downcase
     @duration = directions / 60

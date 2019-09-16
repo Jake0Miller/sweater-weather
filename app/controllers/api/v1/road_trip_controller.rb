@@ -1,8 +1,7 @@
 class Api::V1::RoadTripController < ApplicationController
   def new
     if valid_credentials? == 'true'
-      road_trip = RoadTripFacade.new(dir_params)
-      render json: RoadTripSerializer.new(road_trip)
+      render json: RoadTripSerializer.new(RoadTripFacade.new(dir_params))
     end
   end
 

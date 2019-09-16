@@ -27,11 +27,13 @@ describe 'POST /api/v1/road_trip' do
 
     post '/api/v1/road_trip', params: @request_body.to_json, headers: @headers
 
-    road_trip = JSON.parse(response.body, symbolize_names: true)
-    binding.pry
+    road_trip = JSON.parse(response.body, symbolize_names: true)[:data]
+
     expect(response.status).to eq 200
 
-    expect(road_trip.keys).to eq([:temperature, :summary, :eta])
+    expect(road_trip.keys).to eq([:id, :type, :attributes])
+    expect(road_trip[:attributes].keys).to eq([:id, :origin, :destination, :duration, :temperature, :summary])
+    expect(road_trip[:attributes][:temperature]).to eq(85.5)
 
     expect(Location.count).to eq (1)
   end
