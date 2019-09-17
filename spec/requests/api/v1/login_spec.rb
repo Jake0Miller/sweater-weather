@@ -6,7 +6,7 @@ describe 'POST /api/v1/sessions' do
 
     @request_body = {"email" => @user.email,
       "password" => "password"}
-      
+
     @headers = {'CONTENT_TYPE' => 'application/json',
       'ACCEPT' => 'application/json'}
     expect(User.count).to eq(1)
