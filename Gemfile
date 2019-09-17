@@ -13,6 +13,7 @@ gem 'puma', '~> 3.11'
 gem 'figaro'
 gem 'webmock'
 gem 'faraday'
+gem 'sidekiq'
 gem 'fast_jsonapi'
 gem 'active_model_serializers'
 

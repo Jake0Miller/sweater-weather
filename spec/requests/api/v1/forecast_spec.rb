@@ -20,6 +20,7 @@ describe 'GET /api/v1/forecast?location=denver,co' do
 
     expect(forecast.length).to eq(6)
     expect(forecast.keys).to eq([:id, :location, :address, :currently, :hourly, :daily])
+    expect(forecast[:id]).to eq(1)
     expect(forecast[:address]).to eq("Denver, CO, USA")
     expect(forecast[:currently][:summary]).to eq("Partly Cloudy")
   end
