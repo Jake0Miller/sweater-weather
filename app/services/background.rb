@@ -11,7 +11,7 @@ class Background < BaseService
 
   def conn
     @_conn ||= Faraday.new(url: "https://api.unsplash.com/") do |faraday|
-      faraday.headers["Authorization"] = "Client-ID #{ENV['key']}"
+      faraday.headers["Authorization"] = "Client-ID #{ENV['img_access']}"
       faraday.params["query"] = @location
       faraday.params["per_page"] = "1"
       faraday.params["pages"] = "1"
