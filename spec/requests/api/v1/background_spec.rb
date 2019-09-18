@@ -6,9 +6,9 @@ describe 'GET /api/v1/backgrounds?location=denver,co' do
       "./fixtures/coords.json")
     stub_json("https://maps.googleapis.com/maps/api/geocode/json?address=denver,ia&key=#{ENV['key']}",
       "./fixtures/alt_coords.json")
-    stub_json("https://api.unsplash.com/search/photos?pages=1&per_page=1&query=denver,co",
+    stub_json("https://api.unsplash.com/search/photos?pages=1&per_page=1&query=denver,co,parks",
       "./fixtures/image.json")
-    stub_json("https://api.unsplash.com/search/photos?pages=1&per_page=1&query=denver,ia",
+    stub_json("https://api.unsplash.com/search/photos?pages=1&per_page=1&query=denver,ia,parks",
       "./fixtures/alt_image.json")
 
     @headers = {'CONTENT_TYPE' => 'application/json',
